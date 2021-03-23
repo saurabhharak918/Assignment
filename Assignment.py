@@ -44,9 +44,9 @@ def home():
         else:
             short_url = shorten_url()
             write_in_url_file( url_recevied,short_url) 
-        return url_recevied
+        return short_url
     else:
-        return render_template("home.html")
+        return render_template("url_page.html")
 
 @app.route('/assignment')
 def hello_assign():
