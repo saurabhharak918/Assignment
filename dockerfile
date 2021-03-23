@@ -1,7 +1,5 @@
 FROM python:3.7.6
 
-WORKDIR /usr/src/infracloud
-
 COPY Templates .
 
 
