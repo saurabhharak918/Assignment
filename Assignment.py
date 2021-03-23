@@ -8,20 +8,17 @@ app = Flask(__name__)
 
 
 def write_in_url_file(longurl,shorturl):
-    urlfile = open("urlFile.text",'w')
+    urlfile = open("urlFile.text",'a')
     stored_url = str(longurl)+":"+str(shorturl)+"\n"
     urlfile.write(str(stored_url))
     urlfile.close() 
 
-def check_if_string_in_file(file_name, string_to_search):
-  
-   
+def check_if_string_in_file(file_name, string_to_search): 
     with open(file_name, 'r') as read_obj:
-        
         for line in read_obj:
-      
             if string_to_search in line:
-                return True
+                shorturl = line.replace(string_to_search+":","")
+                return str(shorturl)
     return False
 
 def shorten_url():
@@ -30,6 +27,7 @@ def shorten_url():
         rand_letters = random.choices(letters,k=3)
         rand_letters = "".join(rand_letters)
         shorten_url = check_if_string_in_file("urlFile.text",str(rand_letters))
+        print("shorten_url"+str(shorten_url))
         if not shorten_url:
             return rand_letters
 
@@ -40,11 +38,13 @@ def home():
         url_recevied = request.form["nm"]
         found_url = check_if_string_in_file("urlFile.text",str(url_recevied))
         if found_url:
-            return "short url"
+            print("found_url"+str(found_url))
+            return found_url
         else:
             short_url = shorten_url()
+            print("home shorten_url"+str(shorten_url))
             write_in_url_file( url_recevied,short_url) 
-        return short_url
+            return short_url
     else:
         return render_template("url_page.html")
 
