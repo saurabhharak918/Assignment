@@ -5,9 +5,15 @@ import string
 import os
 
 app = Flask(__name__)
-@app.route('/')
-def hello_world():
-    return render_template("home.html")
+
+ 
+@app.route('/',methods=['POST','GET'] )
+def home():
+    if request.method == 'POST':
+        url_recevied = request.form["nm"]
+        return url_recevied
+    else:
+        return render_template("home.html")
 
 @app.route('/assignment')
 def hello_assign():
