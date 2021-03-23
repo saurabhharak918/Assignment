@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 @app.route('/')
 def hello_world():
-    return "Hello world"
+    return render_template("home.html")
 
 @app.route('/assignment')
 def hello_assign():
